@@ -8,4 +8,8 @@
     <PackageReference Include="NEST" Version="5.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\wr.repository\wr.repository.csproj" />
+  </ItemGroup>
+
 </Project>

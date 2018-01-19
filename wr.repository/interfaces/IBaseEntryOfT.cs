@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace wr.contracts.common
+namespace wr.repository.interfaces
 {
     public interface IBaseEntry<T>
     {

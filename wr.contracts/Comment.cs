@@ -1,10 +1,11 @@
 ﻿using Nest;
 using System;
-using wr.contracts.common;
+using wr.repository;
+using wr.repository.interfaces;
 
 namespace wr.contracts
 {
-    [MyTypeAttribute(IdProperty = "Id", ReadAlias = WRIndexAliases.Read, WriteAlias = WRIndexAliases.Write)]
+    [RepositoryEntry(IdProperty = "Id", ReadAlias = WRIndexAliases.Read, WriteAlias = WRIndexAliases.Write,UseSourceIndex = true, CheckVersion = true)]
     public class Comment : IBaseEntry<string>
     {
         [Text]

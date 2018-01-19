@@ -50,7 +50,7 @@ namespace wr.application
             //    Content = "Sample comment #2"
             //}, s => s.Index(idx_write));
 
-            var resp = cli.Search<Comment>(s => s.Index(idx_read));
+            var resp = cli.Search<Comment>(s => s.Index(idx_read).Que);
 
             if (resp.IsValid)
             {
