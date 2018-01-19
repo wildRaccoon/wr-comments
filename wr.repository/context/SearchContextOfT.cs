@@ -38,7 +38,7 @@ namespace wr.repository.context
                 throw new Exception($"Write index on type {nameof(T)} not available.");
             }
 
-            _search_working_index = string.IsNullOrEmpty(_read_index) ? _read_index : _write_index;
+            _search_working_index = !string.IsNullOrEmpty(_read_index) ? _read_index : _write_index;
 
             _check_version = attr.CheckVersion;
             _use_source_index = attr.UseSourceIndex;

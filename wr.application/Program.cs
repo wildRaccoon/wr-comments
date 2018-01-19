@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using wr.contracts;
 using wr.repository;
+using wr.repository.context;
 
 namespace wr.application
 {
@@ -23,26 +24,7 @@ namespace wr.application
             sc.AddSingleton<IElasticClient, ElasticClient>();
 
             var sp = sc.BuildServiceProvider();
-
             var cli = sp.GetRequiredService<IElasticClient>();
-
-            var idx_read = "wr_read";
-            var idx_write = "wr_write";
-
-            var data = 
-            (
-            from a in AppDomain.CurrentDomain.GetAssemblies()
-            from t in a.GetTypes()
-            let atrs = t.GetCustomAttributes(typeof(ElasticsearchTypeAttribute), true)
-            from atr in atrs
-            where atr != null
-            select atr as ElasticsearchTypeAttribute
-            ).ToList();
-
-            cli.Map<Comment>(d =>
-                d.AutoMap()
-                .Index($"{idx_write}")
-            );
 
             //cli.Index<Comment>(new Comment()
             //{
@@ -50,17 +32,15 @@ namespace wr.application
             //    Content = "Sample comment #2"
             //}, s => s.Index(idx_write));
 
-            var resp = cli.Search<Comment>(s => s.Index(idx_read).Que);
+            var seachContext = new SearchContext<Comment>();
+            var resp = cli.Search<Comment>(s => seachContext.ApplyContext(s));
 
             if (resp.IsValid)
             {
-                var items = resp.Hits.ToList().Select(x =>
+                resp.Hits.ToList().ForEach(x =>
                 {
-                    x.Source.SourceIndex = x.Index;
-                    return x.Source;
-                }).ToList();
-
-                items.ForEach(x => Console.WriteLine($"[{x.Id} - {x.SourceIndex}]   {x.Content}"));
+                    Console.WriteLine($"[{x.Id} - {x.Index} - {x.Version}]   {x.Source.Content}");
+                });
             }
         }
     }
