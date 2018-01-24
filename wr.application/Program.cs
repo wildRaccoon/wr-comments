@@ -22,7 +22,6 @@ namespace wr.application
             sc.AddWRRepository();
 
             var sp = sc.BuildServiceProvider();
-
             var cli = sp.GetRequiredService<ISearchProxy>();
 
             //cli.Index<Comment>(new Comment()
@@ -41,6 +40,8 @@ namespace wr.application
             {
                 Console.WriteLine(c.Content);
             }
+
+            Console.ReadLine();
         }
     }
 }

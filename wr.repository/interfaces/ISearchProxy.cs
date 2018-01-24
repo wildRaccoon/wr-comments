@@ -8,7 +8,7 @@ namespace wr.repository.interfaces
 {
     public interface ISearchProxy
     {
-        List<EntryContext<T>> Search<T>(Func<QueryContainerDescriptor<T>, QueryContainer> query = null)
+        List<EntryContext<T>> Search<T>(Func<SearchDescriptor<T>, ISearchRequest> selector = null)
             where T: class;
     }
 }

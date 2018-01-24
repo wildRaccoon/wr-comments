@@ -9,13 +9,13 @@ namespace wr.repository.context
         where T : class
     {
         #region properties
-        protected const long NOT_SET = -1;
+        public const long VERSION_NOT_SET = -1;
 
         protected T _entry { get; set; }
 
         protected string _source_index { get; set; }
 
-        protected long _version { get; set; } = NOT_SET;
+        protected long _version { get; set; } = VERSION_NOT_SET;
 
         public T Item { get { return _entry; } }
 
@@ -38,7 +38,7 @@ namespace wr.repository.context
         public EntryContext(IHit<T> hit) : this(hit?.Source)
         {
             _source_index = hit.Index;
-            _version = hit.Version.GetValueOrDefault(NOT_SET);
+            _version = hit.Version.GetValueOrDefault(VERSION_NOT_SET);
         }
         #endregion
 

@@ -17,8 +17,6 @@ namespace wr.repository
 
         public bool CheckVersion { get; set; }
 
-        public bool UseSourceIndex { get; set; }
-
         #region resolved types
         private static readonly ConcurrentDictionary<Type, RepositoryEntryAttribute> CachedTypeLookups =
         new ConcurrentDictionary<Type, RepositoryEntryAttribute>();

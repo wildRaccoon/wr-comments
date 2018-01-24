@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using wr.repository.context;
+using wr.repository.extension;
 using wr.repository.interfaces;
 
 namespace wr.repository.proxy
@@ -18,16 +19,16 @@ namespace wr.repository.proxy
         {
             _client = client;
         }
+        #endregion
 
-        public List<EntryContext<T>> Search<T>(Func<QueryContainerDescriptor<T>, QueryContainer> queryDesc)
+        #region ISearchProxy
+        public List<EntryContext<T>> Search<T>(Func<SearchDescriptor<T>, ISearchRequest> selector)
             where T : class
         {
-            var sc = new SearchContext<T>();
-
-            var resp = _client.Search<T>(s => sc
-                .ApplyContext(s)
-                .Query(qt => queryDesc?.Invoke(qt))
-            );
+            var resp = _client.Search<T>(s => {
+                    s = s.ApplyContext();
+                    return selector?.Invoke(s) ?? s;
+                });
 
             if (resp.IsValid)
             {

@@ -16,8 +16,6 @@ namespace wr.repository.context
 
         private bool _check_version { get; set; }
 
-        private bool _use_source_index { get; set; }
-
         protected string _search_working_index = string.Empty;
         #endregion
 
@@ -41,14 +39,13 @@ namespace wr.repository.context
             _search_working_index = !string.IsNullOrEmpty(_read_index) ? _read_index : _write_index;
 
             _check_version = attr.CheckVersion;
-            _use_source_index = attr.UseSourceIndex;
         }
         #endregion
 
         #region ISearchContext<T>
         public SearchDescriptor<T> ApplyContext(SearchDescriptor<T> sd)
         {
-            return sd.Index(_search_working_index).Version(_use_source_index);
+            return sd.Index(_search_working_index).Version(_check_version);
         }
         #endregion
     }

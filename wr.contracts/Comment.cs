@@ -6,7 +6,7 @@ using wr.repository.interfaces;
 
 namespace wr.contracts
 {
-    [RepositoryEntry(IdProperty = "Id", ReadAlias = WRIndexAliases.Read, WriteAlias = WRIndexAliases.Write,UseSourceIndex = true, CheckVersion = true)]
+    [RepositoryEntry(IdProperty = "Id", ReadAlias = WRIndexAliases.Read, WriteAlias = WRIndexAliases.Write, CheckVersion = true)]
     public class Comment
     {
         [Text]
