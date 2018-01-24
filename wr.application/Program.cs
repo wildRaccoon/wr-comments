@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using wr.contracts;
 using wr.repository;
-using wr.repository.context;
+using wr.repository.interfaces;
 
 namespace wr.application
 {
@@ -18,13 +18,12 @@ namespace wr.application
                 .EnableDebugMode();
 
             sc.AddSingleton<IConnectionSettingsValues>(connection);
-
-            var client = new ElasticClient(connection);
-
             sc.AddSingleton<IElasticClient, ElasticClient>();
+            sc.AddWRRepository();
 
             var sp = sc.BuildServiceProvider();
-            var cli = sp.GetRequiredService<IElasticClient>();
+
+            var cli = sp.GetRequiredService<ISearchProxy>();
 
             //cli.Index<Comment>(new Comment()
             //{
@@ -32,15 +31,15 @@ namespace wr.application
             //    Content = "Sample comment #2"
             //}, s => s.Index(idx_write));
 
-            var seachContext = new SearchContext<Comment>();
-            var resp = cli.Search<Comment>(s => seachContext.ApplyContext(s));
+            var resp = cli.Search<Comment>();
+            
+            resp.ForEach(x => 
+                    Console.WriteLine($"[{x.Item.Id} - {x.Index} - {x.Version}]   {x.Item.Content}")
+                );
 
-            if (resp.IsValid)
+            foreach (Comment c in resp)
             {
-                resp.Hits.ToList().ForEach(x =>
-                {
-                    Console.WriteLine($"[{x.Id} - {x.Index} - {x.Version}]   {x.Source.Content}");
-                });
+                Console.WriteLine(c.Content);
             }
         }
     }
