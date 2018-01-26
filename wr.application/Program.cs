@@ -36,10 +36,10 @@ namespace wr.application
             try
             {
                 #region add data
-                //sp.GetRequiredService<IElasticClient>().Index<Comment>(new Comment()
+                //var r1 = sp.GetRequiredService<IElasticClient>().Index<Comment>(new Comment()
                 //{
                 //    Id = Guid.NewGuid().ToString(),
-                //    Content = "Sample comment 5"
+                //    Content = "Sample comment 7"
                 //}, s => s.Index("wr_write"));
 
                 //sp.GetRequiredService<IElasticClient>().Index<Comment>(new Comment()

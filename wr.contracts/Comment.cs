@@ -16,5 +16,23 @@ namespace wr.contracts
         
         [Nested]
         public List<string> Tags { get; set; }
+
+        [Date]
+        public DateTime CreateDate { get; set; }
+
+        [Text]
+        public string UserIdenty { get; set; }
+
+        [Text]
+        public string ArtitleId { get; set; }
+
+        /// <summary>
+        /// /id{1}[YYYY-MM-DD HH-mm-SS]/id{2}[YYYY-MM-DD HH-mm-SS] ....
+        /// </summary>
+        [Text]
+        public string Path { get; set; }
+
+        [Number]
+        public int Level { get; set; } = 1;
     }
 }
