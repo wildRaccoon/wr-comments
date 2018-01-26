@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using wr.repository;
-using wr.repository.interfaces;
 
 namespace wr.contracts
 {
@@ -15,6 +14,7 @@ namespace wr.contracts
         [Text]
         public string Content { get; set; }
         
+        [Nested]
         public List<string> Tags { get; set; }
     }
 }

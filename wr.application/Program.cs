@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Nest;
 using System;
 using System.Linq;
@@ -19,26 +20,52 @@ namespace wr.application
 
             sc.AddSingleton<IConnectionSettingsValues>(connection);
             sc.AddSingleton<IElasticClient, ElasticClient>();
+
             sc.AddWRRepository();
+            sc.AddLogging();
 
             var sp = sc.BuildServiceProvider();
+
+            var logFactory = sp.GetRequiredService<ILoggerFactory>();
+            logFactory.AddConsole();
+
+
             var cli = sp.GetRequiredService<ISearchProxy>();
+            var log = sp.GetRequiredService<ILogger<Program>>();
 
-            //cli.Index<Comment>(new Comment()
-            //{
-            //    Id = Guid.NewGuid().ToString(),
-            //    Content = "Sample comment #2"
-            //}, s => s.Index(idx_write));
-
-            var resp = cli.Search<Comment>();
-            
-            resp.ForEach(x => 
-                    Console.WriteLine($"[{x.Item.Id} - {x.Index} - {x.Version}]   {x.Item.Content}")
-                );
-
-            foreach (Comment c in resp)
+            try
             {
-                Console.WriteLine(c.Content);
+                #region add data
+                //sp.GetRequiredService<IElasticClient>().Index<Comment>(new Comment()
+                //{
+                //    Id = Guid.NewGuid().ToString(),
+                //    Content = "Sample comment 5"
+                //}, s => s.Index("wr_write"));
+
+                //sp.GetRequiredService<IElasticClient>().Index<Comment>(new Comment()
+                //{
+                //    Id = Guid.NewGuid().ToString(),
+                //    Content = "Sample comment 6"
+                //}, s => s.Index("wr_write"));
+                //
+                //return; 
+                #endregion
+
+                var resp = cli.Search<Comment>();
+
+                resp.ForEach(x =>
+                        log.LogInformation($"[{x.Item.Id} - {x.Index} - {x.Version}]   {x.Item.Content}")
+                    );
+
+                foreach (Comment c in resp)
+                {
+                    log.LogInformation(c.Content);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                log.LogError(ex, "Error while executing query.");
             }
 
             Console.ReadLine();
