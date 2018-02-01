@@ -32,7 +32,7 @@ namespace wr.contracts
         [Text]
         public string Path { get; set; }
 
-        [Number]
+        [Number(NumberType.Integer)]
         public int Level { get; set; } = 1;
     }
 }
