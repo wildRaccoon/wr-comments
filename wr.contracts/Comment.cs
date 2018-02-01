@@ -27,7 +27,7 @@ namespace wr.contracts
         public string ArtitleId { get; set; }
 
         /// <summary>
-        /// /id{1}[YYYY-MM-DD HH-mm-SS]/id{2}[YYYY-MM-DD HH-mm-SS] ....
+        /// /[YYYYMMDDHHmmSS0000]-[id1]/[YYYYMMDDHHmmSS0000]-[id2] ....
         /// </summary>
         [Text]
         public string Path { get; set; }
