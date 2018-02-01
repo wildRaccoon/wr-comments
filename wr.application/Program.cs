@@ -53,20 +53,16 @@ namespace wr.application
 
                 var resp = cli.Search<Comment>();
 
-//                resp.ToList().ForEach(x =>
-//                        log.LogInformation($"[{x.Item.Id} - {x.Index} - {x.Version}]   {x.Item.Content}")
-//                    );
+                resp.ToList().ForEach(x =>
+                        log.LogInformation($"[{x.Item.Id} - {x.Index} - {x.Version}]   {x.Item.Content}")
+                    );
 
-                foreach (var item in resp)
+                foreach (Comment item in resp)
                 {
                     log.LogInformation($"[{item.Id}] {item.Content}");
                 }
-                
-                foreach (Comment c in resp)
-                {
-                    log.LogInformation(c.Content);
-                }
 
+                resp.Add(new Comment());
             }
             catch (Exception ex)
             {

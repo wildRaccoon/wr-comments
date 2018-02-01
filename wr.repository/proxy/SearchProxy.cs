@@ -75,7 +75,7 @@ namespace wr.repository.proxy
         #endregion
 
         #region ISearchProxy
-        public IList<T> Search<T>(Func<SearchDescriptor<T>, ISearchRequest> selector)
+        public List<EntryContext<T>> Search<T>(Func<SearchDescriptor<T>, ISearchRequest> selector)
             where T : class
         {
             var resp = _client.Search<T>(s => {
@@ -85,9 +85,7 @@ namespace wr.repository.proxy
 
             if (resp.IsValid)
             {
-                return new ListEntryContext<T>(
-                        resp.Hits.Select(item => new EntryContext<T>(item)).ToList()
-                    );
+                return resp.Hits.Select(item => new EntryContext<T>(item)).ToList();
             }
             else
             {
