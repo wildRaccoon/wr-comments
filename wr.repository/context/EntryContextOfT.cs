@@ -39,7 +39,7 @@ namespace wr.repository.context
             var attr = RepositoryEntryAttribute.FromType(typeof(T));
             if (attr == null)
             {
-                throw new ArgumentNullException(nameof(attr));
+                throw new ArgumentException($"Type {typeof(T).Name} not signed as WR repository contract.");
             }
 
             if (attr.CheckVersion)
