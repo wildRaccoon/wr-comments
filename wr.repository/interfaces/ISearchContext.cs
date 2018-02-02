@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using wr.repository.context;
 
 namespace wr.repository.interfaces
 {
@@ -9,5 +10,11 @@ namespace wr.repository.interfaces
         where T: class
     {
         SearchDescriptor<T> ApplyContext(SearchDescriptor<T> searchDescriptor);
+
+        IIndexRequest<T> ApplyContext(IndexDescriptor<T> searchDescriptor);
+
+        IIndexRequest<T> ApplyContext(IndexDescriptor<T> searchDescriptor,EntryContext<T> entry);
+
+        IDeleteRequest ApplyContext(DeleteDescriptor<T> sd, EntryContext<T> entry);
     }
 }

@@ -18,7 +18,7 @@ namespace wr.contracts
         public List<string> Tags { get; set; }
 
         [Date]
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;
 
         [Text]
         public string UserIdenty { get; set; }

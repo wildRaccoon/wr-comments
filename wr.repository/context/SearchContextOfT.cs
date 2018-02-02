@@ -43,9 +43,42 @@ namespace wr.repository.context
         #endregion
 
         #region ISearchContext<T>
+        //Operation: Search
         public SearchDescriptor<T> ApplyContext(SearchDescriptor<T> sd)
         {
             return sd.Index(_search_working_index).Version(_check_version);
+        }
+
+        //Operation: Add
+        public IIndexRequest<T> ApplyContext(IndexDescriptor<T> sd)
+        {
+            return sd.Index(_write_index);
+        }
+
+        //Operation: Update
+        public IIndexRequest<T> ApplyContext(IndexDescriptor<T> sd, EntryContext<T> entry)
+        {
+            if (_check_version)
+            {
+                return sd.Index(entry.Index).Version(entry.Version);
+            }
+            else
+            {
+                return sd.Index(entry.Index);
+            }
+        }
+
+        //Operation: Delete
+        public IDeleteRequest ApplyContext(DeleteDescriptor<T> sd, EntryContext<T> entry)
+        {
+            if (_check_version)
+            {
+                return sd.Index(entry.Index).Version(entry.Version);
+            }
+            else
+            {
+                return sd.Index(entry.Index);
+            }
         }
         #endregion
     }

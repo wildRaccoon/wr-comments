@@ -15,6 +15,8 @@ namespace wr.repository.context
 
         protected long _version { get; set; } = VERSION_NOT_SET;
 
+        protected bool _checkVersion = false;
+
         #region public
         public const long VERSION_NOT_SET = -1;
 
@@ -42,6 +44,7 @@ namespace wr.repository.context
 
             if (attr.CheckVersion)
             {
+                _checkVersion = true;
                 _version = 0;
             }
 
@@ -67,6 +70,41 @@ namespace wr.repository.context
         public static implicit operator T (EntryContext<T>  entry)
         {
             return entry.Item;
+        }
+        #endregion
+
+        #region public
+        internal void UpdateContext(string index, long version = VERSION_NOT_SET)
+        {
+            _source_index = index;
+
+            if (_checkVersion)
+            {
+                if (version < _version)
+                {
+                    throw new ArgumentOutOfRangeException($"Current context version {_version} is greater then {version}.");
+                }
+
+                _version = version;
+            }
+        }
+
+        internal void ResetContext()
+        {
+            var attr = RepositoryEntryAttribute.FromType(typeof(T));
+            if (attr == null)
+            {
+                throw new ArgumentNullException(nameof(attr));
+            }
+
+            if (attr.CheckVersion)
+            {
+                _checkVersion = true;
+                _version = 0;
+            }
+
+            //new items will be populated into write index
+            _source_index = attr.WriteAlias;
         }
         #endregion
     }
