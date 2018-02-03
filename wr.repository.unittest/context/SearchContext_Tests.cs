@@ -90,9 +90,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] add - without version check")]
         public static void AddWithoutVersionCheck()
         {
-            var entry = new EntryContext<ContractWithoutVersionCheck>(new ContractWithoutVersionCheck());
+            var entry = new ContractWithoutVersionCheck();
 
-            var sd = new IndexDescriptor<ContractWithoutVersionCheck>(entry.Item);
+            var sd = new IndexDescriptor<ContractWithoutVersionCheck>(entry);
 
             var sc = new SearchContext<ContractWithoutVersionCheck>();
             IIndexRequest<ContractWithoutVersionCheck> req = sc.ApplyContext(sd);
@@ -104,9 +104,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] add - with version check")]
         public static void AddWithVersionCheck()
         {
-            var entry = new EntryContext<ContractWithVersionCheck>(new ContractWithVersionCheck());
+            var entry = new ContractWithVersionCheck();
 
-            var sd = new IndexDescriptor<ContractWithVersionCheck>(entry.Item);
+            var sd = new IndexDescriptor<ContractWithVersionCheck>(entry);
 
             var sc = new SearchContext<ContractWithVersionCheck>();
             IIndexRequest<ContractWithVersionCheck> req = sc.ApplyContext(sd);
@@ -118,9 +118,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] add - without version check & only write index")]
         public static void AddWithoutVersionCheckOnlyWriteIndex()
         {
-            var entry = new EntryContext<ContractWithoutVersionOnlyWriteIndex>(new ContractWithoutVersionOnlyWriteIndex());
+            var entry = new ContractWithoutVersionOnlyWriteIndex();
 
-            var sd = new IndexDescriptor<ContractWithoutVersionOnlyWriteIndex>(entry.Item);
+            var sd = new IndexDescriptor<ContractWithoutVersionOnlyWriteIndex>(entry);
 
             var sc = new SearchContext<ContractWithoutVersionOnlyWriteIndex>();
             IIndexRequest<ContractWithoutVersionOnlyWriteIndex> req = sc.ApplyContext(sd);
@@ -132,9 +132,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] add - only write index")]
         public static void AddOnlyWriteIndex()
         {
-            var entry = new EntryContext<ContractOnlyWriteIndex>(new ContractOnlyWriteIndex());
+            var entry = new ContractOnlyWriteIndex();
 
-            var sd = new IndexDescriptor<ContractOnlyWriteIndex>(entry.Item);
+            var sd = new IndexDescriptor<ContractOnlyWriteIndex>(entry);
 
             var sc = new SearchContext<ContractOnlyWriteIndex>();
             IIndexRequest<ContractOnlyWriteIndex> req = sc.ApplyContext(sd);
@@ -148,9 +148,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] update - without version check")]
         public static void UpgradeWithoutVersionCheck()
         {
-            var entry = new EntryContext<ContractWithoutVersionCheck>(new ContractWithoutVersionCheck());
+            var entry = new ContractWithoutVersionCheck();
 
-            var sd = new IndexDescriptor<ContractWithoutVersionCheck>(entry.Item);
+            var sd = new IndexDescriptor<ContractWithoutVersionCheck>(entry);
 
             var sc = new SearchContext<ContractWithoutVersionCheck>();
             IIndexRequest<ContractWithoutVersionCheck> req = sc.ApplyContext(sd,entry);
@@ -162,9 +162,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] update - with version check")]
         public static void UpgradeWithVersionCheck()
         {
-            var entry = new EntryContext<ContractWithVersionCheck>(new ContractWithVersionCheck());
+            var entry = new ContractWithVersionCheck();
 
-            var sd = new IndexDescriptor<ContractWithVersionCheck>(entry.Item);
+            var sd = new IndexDescriptor<ContractWithVersionCheck>(entry);
 
             var sc = new SearchContext<ContractWithVersionCheck>();
 
@@ -182,9 +182,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] update - without version check & only write index")]
         public static void UpdateWithoutVersionCheckOnlyWriteIndex()
         {
-            var entry = new EntryContext<ContractWithoutVersionOnlyWriteIndex>(new ContractWithoutVersionOnlyWriteIndex());
+            var entry = new ContractWithoutVersionOnlyWriteIndex();
 
-            var sd = new IndexDescriptor<ContractWithoutVersionOnlyWriteIndex>(entry.Item);
+            var sd = new IndexDescriptor<ContractWithoutVersionOnlyWriteIndex>(entry);
 
             var sc = new SearchContext<ContractWithoutVersionOnlyWriteIndex>();
             IIndexRequest<ContractWithoutVersionOnlyWriteIndex> req = sc.ApplyContext(sd,entry);
@@ -196,9 +196,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] update - only write index")]
         public static void UpgradeOnlyWriteIndex()
         {
-            var entry = new EntryContext<ContractOnlyWriteIndex>(new ContractOnlyWriteIndex());
+            var entry = new ContractOnlyWriteIndex();
 
-            var sd = new IndexDescriptor<ContractOnlyWriteIndex>(entry.Item);
+            var sd = new IndexDescriptor<ContractOnlyWriteIndex>(entry);
 
             var sc = new SearchContext<ContractOnlyWriteIndex>();
             IIndexRequest<ContractOnlyWriteIndex> req = sc.ApplyContext(sd,entry);
@@ -215,9 +215,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] delete - without version check")]
         public static void DeleteWithoutVersionCheck()
         {
-            var entry = new EntryContext<ContractWithoutVersionCheck>(new ContractWithoutVersionCheck());
+            var entry = new ContractWithoutVersionCheck();
 
-            var sd = new DeleteDescriptor<ContractWithoutVersionCheck>(entry.Item);
+            var sd = new DeleteDescriptor<ContractWithoutVersionCheck>(entry);
 
             var sc = new SearchContext<ContractWithoutVersionCheck>();
             IDeleteRequest req = sc.ApplyContext(sd, entry);
@@ -229,9 +229,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] delete - with version check")]
         public static void DeleteWithVersionCheck()
         {
-            var entry = new EntryContext<ContractWithVersionCheck>(new ContractWithVersionCheck());
+            var entry = new ContractWithVersionCheck();
 
-            var sd = new DeleteDescriptor<ContractWithVersionCheck>(entry.Item);
+            var sd = new DeleteDescriptor<ContractWithVersionCheck>(entry);
 
             var sc = new SearchContext<ContractWithVersionCheck>();
 
@@ -249,9 +249,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] delete - without version check & only write index")]
         public static void DeleteWithoutVersionCheckOnlyWriteIndex()
         {
-            var entry = new EntryContext<ContractWithoutVersionOnlyWriteIndex>(new ContractWithoutVersionOnlyWriteIndex());
+            var entry = new ContractWithoutVersionOnlyWriteIndex();
 
-            var sd = new DeleteDescriptor<ContractWithoutVersionOnlyWriteIndex>(entry.Item);
+            var sd = new DeleteDescriptor<ContractWithoutVersionOnlyWriteIndex>(entry);
 
             var sc = new SearchContext<ContractWithoutVersionOnlyWriteIndex>();
             IDeleteRequest req = sc.ApplyContext(sd, entry);
@@ -263,9 +263,9 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[SearchContext] delete - only write index")]
         public static void DeleteOnlyWriteIndex()
         {
-            var entry = new EntryContext<ContractOnlyWriteIndex>(new ContractOnlyWriteIndex());
+            var entry = new ContractOnlyWriteIndex();
 
-            var sd = new DeleteDescriptor<ContractOnlyWriteIndex>(entry.Item);
+            var sd = new DeleteDescriptor<ContractOnlyWriteIndex>(entry);
 
             var sc = new SearchContext<ContractOnlyWriteIndex>();
             IDeleteRequest req = sc.ApplyContext(sd, entry);

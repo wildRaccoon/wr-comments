@@ -9,12 +9,12 @@ namespace wr.repository.proxy
     public partial class SearchProxy
     {
         #region ISearchProxy
-        private void CheckResponseDelete<T>(IDeleteResponse resp, EntryContext<T> entry)
-            where T: class
+        private void CheckResponseDelete<T>(IDeleteResponse resp, T entry)
+            where T: BaseContract
         {
             if (resp.IsValid && resp.Result == Result.Deleted)
             {
-                entry.ResetContext();
+                entry.InitializeEntry();
             }
             else
             {
@@ -22,18 +22,18 @@ namespace wr.repository.proxy
             }
         }
 
-        public void Delete<T>(EntryContext<T> entry)
-            where T : class
+        public void Delete<T>(T entry)
+            where T : BaseContract
         {
-            var resp = _client.Delete<T>(entry.Item, s => s.ApplyContext(entry));
+            var resp = _client.Delete<T>(entry, s => s.ApplyContext(entry));
 
             CheckResponseDelete(resp,entry);
         }
 
-        public async Task DeleteAsync<T>(EntryContext<T> entry)
-                where T : class
+        public async Task DeleteAsync<T>(T entry)
+                where T : BaseContract
         {
-            var resp = await _client.DeleteAsync<T>(entry.Item, s => s.ApplyContext(entry));
+            var resp = await _client.DeleteAsync<T>(entry, s => s.ApplyContext(entry));
 
             CheckResponseDelete(resp,entry);
         }

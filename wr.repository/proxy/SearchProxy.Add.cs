@@ -9,8 +9,8 @@ namespace wr.repository.proxy
     public partial class SearchProxy
     {
         #region ISearchProxy
-        private EntryContext<T> CheckResponseAdd<T>(IIndexResponse resp, EntryContext<T> entry)
-            where T : class
+        private T CheckResponseAdd<T>(IIndexResponse resp, T entry)
+            where T : BaseContract
         {
             if (resp.IsValid && resp.Result == Result.Created)
             {
@@ -24,17 +24,17 @@ namespace wr.repository.proxy
             return entry;
         }
 
-        public EntryContext<T> Add<T>(EntryContext<T> entry)
-            where T : class
+        public T Add<T>(T entry)
+            where T : BaseContract
         {
-            var resp = _client.Index<T>(entry.Item, s => s.ApplyContext());
+            var resp = _client.Index<T>(entry, s => s.ApplyContext());
             return CheckResponseAdd(resp, entry);
         }
 
-        public async Task<EntryContext<T>> AddAsync<T>(EntryContext<T> entry)
-                where T : class
+        public async Task<T> AddAsync<T>(T entry)
+                where T : BaseContract
         {
-            var resp = await _client.IndexAsync<T>(entry.Item, s => s.ApplyContext());
+            var resp = await _client.IndexAsync<T>(entry, s => s.ApplyContext());
             return CheckResponseAdd(resp, entry);
         }
         #endregion

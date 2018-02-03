@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using wr.repository;
+using wr.repository.context;
 
 namespace wr.contracts
 {
     [RepositoryEntry(IdProperty = "Id", ReadAlias = WRIndexAliases.Read, WriteAlias = WRIndexAliases.Write, CheckVersion = true)]
-    public class Comment
+    public class Comment : BaseContract
     {
         [Text]
         public string Id { get; set; }

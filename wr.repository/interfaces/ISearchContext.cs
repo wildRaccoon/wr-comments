@@ -7,14 +7,14 @@ using wr.repository.context;
 namespace wr.repository.interfaces
 {
     public interface ISearchContext<T>
-        where T: class
+        where T: BaseContract
     {
         SearchDescriptor<T> ApplyContext(SearchDescriptor<T> searchDescriptor);
 
         IIndexRequest<T> ApplyContext(IndexDescriptor<T> searchDescriptor);
 
-        IIndexRequest<T> ApplyContext(IndexDescriptor<T> searchDescriptor,EntryContext<T> entry);
+        IIndexRequest<T> ApplyContext(IndexDescriptor<T> searchDescriptor, T entry);
 
-        IDeleteRequest ApplyContext(DeleteDescriptor<T> sd, EntryContext<T> entry);
+        IDeleteRequest ApplyContext(DeleteDescriptor<T> sd, T entry);
     }
 }

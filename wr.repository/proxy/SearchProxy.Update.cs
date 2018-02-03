@@ -11,8 +11,8 @@ namespace wr.repository.proxy
     public partial class SearchProxy
     {
         #region ISearchProxy
-        private EntryContext<T> CheckResponseUpdate<T>(IIndexResponse resp, EntryContext<T> entry)
-            where T : class
+        private T CheckResponseUpdate<T>(IIndexResponse resp, T entry)
+            where T : BaseContract
         {
             if (resp.IsValid && resp.Result == Result.Updated)
             {
@@ -26,17 +26,17 @@ namespace wr.repository.proxy
             return entry;
         }
 
-        public EntryContext<T> Update<T>(EntryContext<T> entry)
-            where T : class
+        public T Update<T>(T entry)
+            where T : BaseContract
         {
-            var resp = _client.Index<T>(entry.Item, s => s.ApplyContext(entry));
+            var resp = _client.Index<T>(entry, s => s.ApplyContext(entry));
             return CheckResponseUpdate(resp, entry);
         }
 
-        public async Task<EntryContext<T>> UpdateAsync<T>(EntryContext<T> entry)
-                where T : class
+        public async Task<T> UpdateAsync<T>(T entry)
+                where T : BaseContract
         {
-            var resp = await _client.IndexAsync<T>(entry.Item, s => s.ApplyContext(entry));
+            var resp = await _client.IndexAsync<T>(entry, s => s.ApplyContext(entry));
             return CheckResponseUpdate(resp, entry);
         }
         #endregion

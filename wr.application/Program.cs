@@ -52,40 +52,40 @@ namespace wr.application
                 var resp = respTask.Result;
 
                 resp.ToList().ForEach(x =>
-                        log.LogInformation($"Sync - [{x.Item.Id} - {x.Index} - {x.Version}]   {x.Item.Content}")
+                        log.LogInformation($"Sync - [{x.Id} - {x.Index} - {x.Version}]   {x.Content}")
                     );
 
                 resp = cli.Search<Comment>();
 
                 resp.ToList().ForEach(x =>
-                        log.LogInformation($"Async - [{x.Item.Id} - {x.Index} - {x.Version}]   {x.Item.Content}")
+                        log.LogInformation($"Async - [{x.Id} - {x.Index} - {x.Version}]   {x.Content}")
                     ); 
                 #endregion
 
                 #region sync
-                var addedItem = cli.Add<Comment>(CreateNew());
-                log.LogInformation($"Add - [{addedItem.Item.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Item.Content}");
+                var addedItem = cli.Add(CreateNew());
+                log.LogInformation($"Add - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
 
-                addedItem.Item.Content += $"\r\n Updated : {DateTime.Now}";
+                addedItem.Content += $"\r\n Updated : {DateTime.Now}";
                 cli.Update(addedItem);
-                log.LogInformation($"Update - [{addedItem.Item.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Item.Content}");
+                log.LogInformation($"Update - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
 
                 cli.Delete(addedItem);
-                log.LogInformation($"Delete - [{addedItem.Item.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Item.Content}");
+                log.LogInformation($"Delete - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
                 #endregion
 
                 #region async
-                var taskAdd = cli.AddAsync<Comment>(CreateNew());
+                var taskAdd = cli.AddAsync(CreateNew());
                 taskAdd.Wait();
                 addedItem = taskAdd.Result;
-                log.LogInformation($"AddAsync - [{addedItem.Item.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Item.Content}");
+                log.LogInformation($"AddAsync - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
 
-                addedItem.Item.Content += $"\r\n Updated : {DateTime.Now}";
+                addedItem.Content += $"\r\n Updated : {DateTime.Now}";
                 cli.UpdateAsync(addedItem).Wait();
-                log.LogInformation($"UpdateAsync - [{addedItem.Item.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Item.Content}");
+                log.LogInformation($"UpdateAsync - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
 
                 cli.DeleteAsync(addedItem).Wait();
-                log.LogInformation($"DeleteAsync - [{addedItem.Item.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Item.Content}"); 
+                log.LogInformation($"DeleteAsync - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}"); 
                 #endregion
             }
             catch (Exception ex)

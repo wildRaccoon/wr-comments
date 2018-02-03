@@ -10,7 +10,7 @@ namespace wr.repository.extension
     {
         #region Search
         public static SearchDescriptor<T> ApplyContext<T>(this SearchDescriptor<T> sd)
-            where T : class
+            where T : BaseContract
         {
             var sc = new SearchContext<T>();
             return sc.ApplyContext(sd);
@@ -19,7 +19,7 @@ namespace wr.repository.extension
 
         #region Add
         public static IIndexRequest<T> ApplyContext<T>(this IndexDescriptor<T> sd)
-            where T : class
+            where T : BaseContract
         {
             var sc = new SearchContext<T>();
             return sc.ApplyContext(sd);
@@ -27,8 +27,8 @@ namespace wr.repository.extension
         #endregion
 
         #region Update
-        public static IIndexRequest<T> ApplyContext<T>(this IndexDescriptor<T> sd, EntryContext<T> entry)
-            where T : class
+        public static IIndexRequest<T> ApplyContext<T>(this IndexDescriptor<T> sd, T entry)
+            where T : BaseContract
         {
             var sc = new SearchContext<T>();
             return sc.ApplyContext(sd,entry);
@@ -36,8 +36,8 @@ namespace wr.repository.extension
         #endregion
 
         #region Delete
-        public static IDeleteRequest ApplyContext<T>(this DeleteDescriptor<T> sd, EntryContext<T> entry)
-            where T : class
+        public static IDeleteRequest ApplyContext<T>(this DeleteDescriptor<T> sd, T entry)
+            where T : BaseContract
         {
             var sc = new SearchContext<T>();
             return sc.ApplyContext(sd, entry);

@@ -9,28 +9,28 @@ namespace wr.repository.interfaces
 {
     public interface ISearchProxy
     {
-        List<EntryContext<T>> Search<T>(Func<SearchDescriptor<T>, ISearchRequest> selector = null)
-            where T: class;
+        List<T> Search<T>(Func<SearchDescriptor<T>, ISearchRequest> selector = null)
+            where T : BaseContract;
 
-        Task<List<EntryContext<T>>> SearchAsync<T>(Func<SearchDescriptor<T>, ISearchRequest> selector = null)
-                where T : class;
+        Task<List<T>> SearchAsync<T>(Func<SearchDescriptor<T>, ISearchRequest> selector = null)
+                where T : BaseContract;
 
-        EntryContext<T> Update<T>(EntryContext<T> entry)
-               where T : class;
+        T Update<T>(T entry)
+               where T : BaseContract;
 
-        Task<EntryContext<T>> UpdateAsync<T>(EntryContext<T> entry)
-                where T : class;
+        Task<T> UpdateAsync<T>(T entry)
+                where T : BaseContract;
 
-        EntryContext<T> Add<T>(EntryContext<T> entry)
-                where T : class;
+        T Add<T>(T entry)
+                where T : BaseContract;
 
-        Task<EntryContext<T>> AddAsync<T>(EntryContext<T> entry)
-                where T : class;
+        Task<T> AddAsync<T>(T entry)
+                where T : BaseContract;
 
-        Task DeleteAsync<T>(EntryContext<T> entry)
-                where T : class;
+        Task DeleteAsync<T>(T entry)
+                where T : BaseContract;
 
-        void Delete<T>(EntryContext<T> entry)
-            where T : class;
+        void Delete<T>(T entry)
+            where T : BaseContract;
     }
 }

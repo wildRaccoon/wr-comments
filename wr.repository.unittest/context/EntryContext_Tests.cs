@@ -12,16 +12,16 @@ namespace wr.repository.unittest.context
         [Fact(DisplayName = "[EntryContext] without version check")]
         public static void CreateWithoutVersionCheck()
         {
-            var entry = new EntryContext<ContractWithoutVersionCheck>(new ContractWithoutVersionCheck());
+            var entry = new ContractWithoutVersionCheck();
 
-            Assert.Equal(EntryContext<ContractWithoutVersionCheck>.VERSION_NOT_SET, entry.Version);
+            Assert.Equal(BaseContract.VERSION_NOT_SET, entry.Version);
             Assert.Equal(IndicesList.Write, entry.Index);
         }
 
         [Fact(DisplayName = "[EntryContext] with version check")]
         public static void CreateWithVersionCheck()
         {
-            var entry = new EntryContext<ContractWithVersionCheck>(new ContractWithVersionCheck());
+            var entry = new ContractWithVersionCheck();
 
             Assert.Equal(0l, entry.Version);
             Assert.Equal(IndicesList.Write, entry.Index);
@@ -32,7 +32,7 @@ namespace wr.repository.unittest.context
         {
             try
             {
-                var entry = new EntryContext<ContractNotInRepository>(new ContractNotInRepository());
+                var entry = new ContractNotInRepository();
             }
             catch (ArgumentException ae)
             {

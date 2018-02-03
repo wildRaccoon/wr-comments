@@ -7,7 +7,7 @@ using wr.repository.interfaces;
 namespace wr.repository.context
 {
     public class SearchContext<T> : ISearchContext<T>
-        where T : class
+        where T : BaseContract
     {
         #region properties
         private string _read_index { get; set; }
@@ -56,7 +56,7 @@ namespace wr.repository.context
         }
 
         //Operation: Update
-        public IIndexRequest<T> ApplyContext(IndexDescriptor<T> sd, EntryContext<T> entry)
+        public IIndexRequest<T> ApplyContext(IndexDescriptor<T> sd, T entry)
         {
             if (_check_version)
             {
@@ -69,7 +69,7 @@ namespace wr.repository.context
         }
 
         //Operation: Delete
-        public IDeleteRequest ApplyContext(DeleteDescriptor<T> sd, EntryContext<T> entry)
+        public IDeleteRequest ApplyContext(DeleteDescriptor<T> sd, T entry)
         {
             if (_check_version)
             {

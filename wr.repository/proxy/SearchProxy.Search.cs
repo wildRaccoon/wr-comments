@@ -11,12 +11,17 @@ namespace wr.repository.proxy
     public partial class SearchProxy
     {
         #region ISearchProxy
-        private List<EntryContext<T>> CheckResponse<T>(ISearchResponse<T> resp)
-            where T : class
+        private List<T> CheckResponse<T>(ISearchResponse<T> resp)
+            where T : BaseContract
         {
             if (resp.IsValid)
             {
-                return resp.Hits.Select(item => new EntryContext<T>(item)).ToList();
+                return resp.Hits.Select(item => {
+                    var entry = item.Source;
+                    entry.UpdateContext(item.Index, item.Version.GetValueOrDefault());
+                    return entry;
+                }
+                ).ToList();
             }
             else
             {
@@ -24,8 +29,8 @@ namespace wr.repository.proxy
             }
         }
 
-        public List<EntryContext<T>> Search<T>(Func<SearchDescriptor<T>, ISearchRequest> selector)
-            where T : class
+        public List<T> Search<T>(Func<SearchDescriptor<T>, ISearchRequest> selector)
+            where T : BaseContract
         {
             var resp = _client.Search<T>(s => {
                     s = s.ApplyContext();
@@ -35,8 +40,8 @@ namespace wr.repository.proxy
             return CheckResponse(resp);
         }
 
-        public async Task<List<EntryContext<T>>> SearchAsync<T>(Func<SearchDescriptor<T>, ISearchRequest> selector = null)
-            where T : class 
+        public async Task<List<T>> SearchAsync<T>(Func<SearchDescriptor<T>, ISearchRequest> selector = null)
+            where T : BaseContract
         {
             var resp = await _client.SearchAsync<T>(s => {
                 s = s.ApplyContext();
