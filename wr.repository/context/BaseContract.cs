@@ -11,12 +11,12 @@ namespace wr.repository.context
 
         private string _source_index { get; set; } = string.Empty;
 
-        private long _version { get; set; } = VERSION_NOT_SET;
+        private long _version { get; set; } = VersionNotSet;
 
         private bool _checkVersion = false;
 
         #region public
-        public const long VERSION_NOT_SET = -1;
+        public const long VersionNotSet = -1;
 
         [Number(Ignore = true)]
         public long Version => _version;
@@ -35,7 +35,7 @@ namespace wr.repository.context
             InitializeEntry();
         }
 
-        internal virtual void InitializeEntry()
+        internal void InitializeEntry()
         {
             var attr = RepositoryEntryAttribute.FromType(this.GetType());
             if (attr == null)
@@ -55,7 +55,7 @@ namespace wr.repository.context
         #endregion
 
         #region public
-        internal virtual void UpdateContext(string index, long version = VERSION_NOT_SET)
+        internal void UpdateContext(string index, long version = VersionNotSet)
         {
             _source_index = index;
 

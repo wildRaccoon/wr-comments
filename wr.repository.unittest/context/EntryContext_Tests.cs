@@ -14,7 +14,7 @@ namespace wr.repository.unittest.context
         {
             var entry = new ContractWithoutVersionCheck();
 
-            Assert.Equal(BaseContract.VERSION_NOT_SET, entry.Version);
+            Assert.Equal(BaseContract.VersionNotSet, entry.Version);
             Assert.Equal(IndicesList.Write, entry.Index);
         }
 
