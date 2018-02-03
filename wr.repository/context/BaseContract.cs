@@ -8,26 +8,29 @@ namespace wr.repository.context
     public abstract class BaseContract
     {
         #region properties
-        protected string _source_index { get; set; } = string.Empty;
 
-        protected long _version { get; set; } = VERSION_NOT_SET;
+        private string _source_index { get; set; } = string.Empty;
 
-        protected bool _checkVersion = false;
+        private long _version { get; set; } = VERSION_NOT_SET;
+
+        private bool _checkVersion = false;
 
         #region public
         public const long VERSION_NOT_SET = -1;
 
         [Number(Ignore = true)]
-        public long Version { get { return _version; } }
+        public long Version => _version;
 
         [Text(Ignore = true)]
-        public string Index { get { return _source_index; } }
+        public string Index => _source_index;
+
         #endregion
 
         #endregion
 
         #region constructor
-        public BaseContract()
+
+        protected BaseContract()
         {
             InitializeEntry();
         }
