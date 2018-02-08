@@ -1,4 +1,4 @@
-﻿namespace service.comment.Contracts
+﻿namespace service.comments.Contracts
 {
     public class IndexAliases
     {

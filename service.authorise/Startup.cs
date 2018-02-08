@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Nest;
-using service.authorise.interfaces;
-using wr.repository;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
-namespace service.comments
+namespace service.authorise
 {
     public class Startup
     {
@@ -23,28 +22,16 @@ namespace service.comments
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connection = new ConnectionSettings(new Uri("http://localhost:9200"))
-                .EnableDebugMode();
-
-            sc.AddSingleton<IConfiguration>(configuration);
-
-            sc.AddAuthoriseClient();
-
-            sc.AddSingleton<IConnectionSettingsValues>(connection);
-            sc.AddSingleton<IElasticClient, ElasticClient>();
-
-            sc.AddWRRepository();
             sc.AddLogging();
 
             sc.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                loggerFactory.AddConsole(LogLevel.Trace);
                 app.UseDeveloperExceptionPage();
             }
 
@@ -52,7 +39,7 @@ namespace service.comments
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=comments}/{action=}/{id?}");
+                    template: "{controller=authorise}/{action=}/{id?}");
             });
         }
     }

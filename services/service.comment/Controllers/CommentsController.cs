@@ -4,18 +4,18 @@ using service.authorise.documents;
 using service.authorise.interfaces;
 using service.comment.interfaces;
 using service.comment.interfaces.documents;
+using System.Threading.Tasks;
 
-namespace service.comment.Controllers
+namespace service.comments.Controllers
 {
-
-    public class CommentsController : Controller, ICommentsController
+    public class CommentsController : Controller, ICommentsService
     {
-        private IAuthoriseController _autorise { get; set; }
+        private IAuthoriseService _autorise { get; set; }
         private ILogger<CommentsController> _logger { get; set; }
 
         #region Constructor
 
-        public CommentsController(ILogger<CommentsController> logger,IAuthoriseController autorise)
+        public CommentsController(ILogger<CommentsController> logger,IAuthoriseService autorise)
         {
             _logger = logger;
             _autorise = autorise;
@@ -24,12 +24,13 @@ namespace service.comment.Controllers
         #endregion
 
         #region ICommentsController
-        [HttpPost]
-        public RegisterArtitleResponse RegisterArtitle(RegisterArtitleRequest request)
+        [HttpPost("[controller]/registerartitle")]
+        public async Task<RegisterArtitleResponse> RegisterArtitleAsync([FromBody] RegisterArtitleRequest request)
         {
-            var ar = _autorise.CheckToken(new CheckTokenRequest()
+            var ar = await _autorise.CheckTokenAsync(new CheckTokenRequest()
             {
-                Token = request.Token
+                Token = request.Token,
+                UserIdentity = request.UserIdentity
             });
 
             if (ar.Success)
@@ -48,6 +49,5 @@ namespace service.comment.Controllers
             }
         }
         #endregion
-
     }
 }
