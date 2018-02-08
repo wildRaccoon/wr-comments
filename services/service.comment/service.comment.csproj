@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\wr.repository\wr.repository.csproj">
+      <Project>{CE6E1317-551B-4D28-A459-2C61A92123C7}</Project>
+      <Name>wr.repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\service.authorise.interfaces\service.authorise.interfaces.csproj" />
+    <ProjectReference Include="..\service.comment.interfaces\service.comment.interfaces.csproj" />
+  </ItemGroup>
+</Project>

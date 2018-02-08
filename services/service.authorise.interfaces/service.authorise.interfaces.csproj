@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\service.core\service.core.csproj">
+      <Project>{ABBB24F9-CE28-4D05-9567-1DDE14807FB0}</Project>
+      <Name>service.core</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

@@ -13,6 +13,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{3F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wr.repository.unittest", "wr.repository.unittest\wr.repository.unittest.csproj", "{A53947B3-EDAC-4C83-A537-F4299910702C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{FE2628DD-811A-476E-954D-B72727795BBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service.comment", "services\service.comment\service.comment.csproj", "{FA905E22-00CD-4A84-A922-A8B508B8A0FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service.comment.interfaces", "services\service.comment.interfaces\service.comment.interfaces.csproj", "{1E7F0CA0-2999-4FF8-B9CD-159698794E8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service.core", "services\service.core\service.core.csproj", "{ABBB24F9-CE28-4D05-9567-1DDE14807FB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service.authorise.interfaces", "services\service.authorise.interfaces\service.authorise.interfaces.csproj", "{D9CA83D9-1693-4001-9EDB-EF64BB61611D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +45,32 @@ Global
 		{A53947B3-EDAC-4C83-A537-F4299910702C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A53947B3-EDAC-4C83-A537-F4299910702C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A53947B3-EDAC-4C83-A537-F4299910702C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA905E22-00CD-4A84-A922-A8B508B8A0FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA905E22-00CD-4A84-A922-A8B508B8A0FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA905E22-00CD-4A84-A922-A8B508B8A0FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA905E22-00CD-4A84-A922-A8B508B8A0FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E7F0CA0-2999-4FF8-B9CD-159698794E8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E7F0CA0-2999-4FF8-B9CD-159698794E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E7F0CA0-2999-4FF8-B9CD-159698794E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E7F0CA0-2999-4FF8-B9CD-159698794E8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABBB24F9-CE28-4D05-9567-1DDE14807FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABBB24F9-CE28-4D05-9567-1DDE14807FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABBB24F9-CE28-4D05-9567-1DDE14807FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABBB24F9-CE28-4D05-9567-1DDE14807FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9CA83D9-1693-4001-9EDB-EF64BB61611D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9CA83D9-1693-4001-9EDB-EF64BB61611D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9CA83D9-1693-4001-9EDB-EF64BB61611D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9CA83D9-1693-4001-9EDB-EF64BB61611D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A53947B3-EDAC-4C83-A537-F4299910702C} = {3F508866-9DE6-41E7-B865-2139DC606EE4}
+		{FA905E22-00CD-4A84-A922-A8B508B8A0FA} = {FE2628DD-811A-476E-954D-B72727795BBB}
+		{1E7F0CA0-2999-4FF8-B9CD-159698794E8F} = {FE2628DD-811A-476E-954D-B72727795BBB}
+		{ABBB24F9-CE28-4D05-9567-1DDE14807FB0} = {FE2628DD-811A-476E-954D-B72727795BBB}
+		{D9CA83D9-1693-4001-9EDB-EF64BB61611D} = {FE2628DD-811A-476E-954D-B72727795BBB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9440332F-ADE6-4CE4-A7EC-EF96BDDC0098}
