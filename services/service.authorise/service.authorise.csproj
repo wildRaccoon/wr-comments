@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\services\service.authorise.interfaces\service.authorise.interfaces.csproj" />
+    <ProjectReference Include="..\service.authorise.interfaces\service.authorise.interfaces.csproj" />
   </ItemGroup>
 
 </Project>
