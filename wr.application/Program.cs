@@ -2,12 +2,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Nest;
-using service.comment.interfaces;
-using service.comment.interfaces.documents;
+using service.comments.interfaces;
+using service.comments.interfaces.documents;
 using System;
 using System.IO;
 using System.Linq;
-using wr.contracts;
+using service.comments.contracts;
 using wr.repository;
 using wr.repository.interfaces;
 
@@ -69,79 +69,79 @@ namespace wr.application
 
         static void Main(string[] args)
         {
-            CheckComment();
+            //CheckComment();
 
-            //var sc = new ServiceCollection();
+            var sc = new ServiceCollection();
 
-            //var connection = new ConnectionSettings(new Uri("http://localhost:9200"))
-            //    .EnableDebugMode();
+            var connection = new ConnectionSettings(new Uri("http://localhost:9200"))
+                .EnableDebugMode();
 
-            //sc.AddSingleton<IConnectionSettingsValues>(connection);
-            //sc.AddSingleton<IElasticClient, ElasticClient>();
+            sc.AddSingleton<IConnectionSettingsValues>(connection);
+            sc.AddSingleton<IElasticClient, ElasticClient>();
 
-            //sc.AddWRRepository();
-            //sc.AddLogging();
+            sc.AddWRRepository();
+            sc.AddLogging();
 
-            //var sp = sc.BuildServiceProvider();
+            var sp = sc.BuildServiceProvider();
 
-            //var logFactory = sp.GetRequiredService<ILoggerFactory>();
-            //logFactory.AddConsole();
+            var logFactory = sp.GetRequiredService<ILoggerFactory>();
+            logFactory.AddConsole();
 
             
-            //var cli = sp.GetRequiredService<ISearchProxy>();
-            //var log = sp.GetRequiredService<ILogger<Program>>();
+            var cli = sp.GetRequiredService<ISearchProxy>();
+            var log = sp.GetRequiredService<ILogger<Program>>();
 
-            //try
-            //{
-            //    #region search
-            //    var respTask = cli.SearchAsync<Comment>();
-            //    respTask.Wait();
+            try
+            {
+                #region search
+                var respTask = cli.SearchAsync<Comment>();
+                respTask.Wait();
 
-            //    var resp = respTask.Result;
+                var resp = respTask.Result;
 
-            //    resp.ToList().ForEach(x =>
-            //            log.LogInformation($"Sync - [{x.Id} - {x.Index} - {x.Version}]   {x.Content}")
-            //        );
+                resp.ToList().ForEach(x =>
+                        log.LogInformation($"Sync - [{x.Id} - {x.Index} - {x.Version}]   {x.Content}")
+                    );
 
-            //    resp = cli.Search<Comment>();
+                resp = cli.Search<Comment>();
 
-            //    resp.ToList().ForEach(x =>
-            //            log.LogInformation($"Async - [{x.Id} - {x.Index} - {x.Version}]   {x.Content}")
-            //        ); 
-            //    #endregion
+                resp.ToList().ForEach(x =>
+                        log.LogInformation($"Async - [{x.Id} - {x.Index} - {x.Version}]   {x.Content}")
+                    ); 
+                #endregion
 
-            //    #region sync
-            //    var addedItem = cli.Add(CreateNew());
-            //    log.LogInformation($"Add - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
+                #region sync
+                var addedItem = cli.Add(CreateNew());
+                log.LogInformation($"Add - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
 
-            //    addedItem.Content += $"\r\n Updated : {DateTime.Now}";
-            //    cli.Update(addedItem);
-            //    log.LogInformation($"Update - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
+                addedItem.Content += $"\r\n Updated : {DateTime.Now}";
+                cli.Update(addedItem);
+                log.LogInformation($"Update - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
 
-            //    cli.Delete(addedItem);
-            //    log.LogInformation($"Delete - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
-            //    #endregion
+                cli.Delete(addedItem);
+                log.LogInformation($"Delete - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
+                #endregion
 
-            //    #region async
-            //    var taskAdd = cli.AddAsync(CreateNew());
-            //    taskAdd.Wait();
-            //    addedItem = taskAdd.Result;
-            //    log.LogInformation($"AddAsync - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
+                #region async
+                var taskAdd = cli.AddAsync(CreateNew());
+                taskAdd.Wait();
+                addedItem = taskAdd.Result;
+                log.LogInformation($"AddAsync - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
 
-            //    addedItem.Content += $"\r\n Updated : {DateTime.Now}";
-            //    cli.UpdateAsync(addedItem).Wait();
-            //    log.LogInformation($"UpdateAsync - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
+                addedItem.Content += $"\r\n Updated : {DateTime.Now}";
+                cli.UpdateAsync(addedItem).Wait();
+                log.LogInformation($"UpdateAsync - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}");
 
-            //    cli.DeleteAsync(addedItem).Wait();
-            //    log.LogInformation($"DeleteAsync - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}"); 
-            //    #endregion
-            //}
-            //catch (Exception ex)
-            //{
-            //    log.LogError(ex, "Error while executing query.");
-            //}
+                cli.DeleteAsync(addedItem).Wait();
+                log.LogInformation($"DeleteAsync - [{addedItem.Id} - {addedItem.Index} - {addedItem.Version}]   {addedItem.Content}"); 
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                log.LogError(ex, "Error while executing query.");
+            }
 
-            //Console.ReadLine();
+            Console.ReadLine();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using service.core.contracts;
 using System.Runtime.Serialization;
 
-namespace service.comment.interfaces.documents
+namespace service.comments.interfaces.documents
 {
     [DataContract]
     public class RegisterArtitleRequest : BaseRequest

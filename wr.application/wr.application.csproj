@@ -1,20 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="appsettings.json" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
@@ -22,11 +18,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0" />
     <PackageReference Include="NEST" Version="6.0.0" />
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\services\service.comment.interfaces\service.comment.interfaces.csproj" />
-    <ProjectReference Include="..\wr.contracts\wr.contracts.csproj" />
+    <ProjectReference Include="..\services\service.comments.interfaces\service.comments.interfaces.csproj" />
+    <ProjectReference Include="..\services\service.comments.contracts\service.comments.contracts.csproj" />
     <ProjectReference Include="..\wr.repository\wr.repository.csproj" />
   </ItemGroup>
-
 </Project>

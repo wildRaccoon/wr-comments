@@ -1,8 +1,8 @@
-﻿namespace service.comments.Contracts
+﻿namespace service.comments.contracts
 {
     public class IndexAliases
     {
-        public const string Read = "service_comment_read";
-        public const string Write = "service_comment_write";
+        public const string Read = "service_comments_read";
+        public const string Write = "service_comments_write";
     }
 }

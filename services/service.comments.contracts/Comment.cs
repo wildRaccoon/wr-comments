@@ -4,7 +4,7 @@ using Nest;
 using wr.repository;
 using wr.repository.context;
 
-namespace service.comments.Contracts
+namespace service.comments.contracts
 {
     [RepositoryEntry(IdProperty = "Id", ReadAlias = IndexAliases.Read, WriteAlias = IndexAliases.Write, CheckVersion = true)]
     public class Comment : BaseContract

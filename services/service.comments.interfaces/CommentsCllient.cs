@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using service.comment.interfaces.documents;
+using service.comments.interfaces.documents;
 using service.core;
 
-namespace service.comment.interfaces
+namespace service.comments.interfaces
 {
     public class CommentsCllient : ICommentsService
     {

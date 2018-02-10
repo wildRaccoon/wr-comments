@@ -16,6 +16,7 @@
       <Name>wr.repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\service.authorise.interfaces\service.authorise.interfaces.csproj" />
-    <ProjectReference Include="..\service.comment.interfaces\service.comment.interfaces.csproj" />
+    <ProjectReference Include="..\service.comments.interfaces\service.comments.interfaces.csproj" />
+    <ProjectReference Include="..\service.comments.contracts\service.comments.contracts.csproj" />
   </ItemGroup>
 </Project>

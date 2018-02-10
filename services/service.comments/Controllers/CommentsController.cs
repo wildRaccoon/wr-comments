@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Logging;
 using service.authorise.documents;
 using service.authorise.interfaces;
-using service.comment.interfaces;
-using service.comment.interfaces.documents;
+using service.comments.interfaces;
+using service.comments.interfaces.documents;
 using System.Threading.Tasks;
 
 namespace service.comments.Controllers

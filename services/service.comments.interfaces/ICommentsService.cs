@@ -1,7 +1,7 @@
-﻿using service.comment.interfaces.documents;
+﻿using service.comments.interfaces.documents;
 using System.Threading.Tasks;
 
-namespace service.comment.interfaces
+namespace service.comments.interfaces
 {
     public interface ICommentsService
     {
