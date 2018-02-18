@@ -16,7 +16,7 @@ namespace service.core
         {
             _url = url;
         }
-
+        
         public async Task<TRes> PostAsync<TReq, TRes>(string name,TReq req)
             where TRes: class
             where TReq: class

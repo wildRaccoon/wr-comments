@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +17,6 @@ namespace service.authorise.controller
             _logger = logger;
         }
 
-        private string MD5Hash(string input)
-        {
-            using (var md5 = MD5.Create())
-            {
-                var result = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
-                return Encoding.UTF8.GetString(result);
-            }
-        }
-
         [HttpPost("[controller]/checktoken")]
         public async Task<CheckTokenResponse> CheckTokenAsync([FromBody] CheckTokenRequest request)
         {
@@ -38,6 +28,12 @@ namespace service.authorise.controller
             };
 
             return resp;
+        }
+
+        [HttpPost("[controller]/checktoken")]
+        public async Task<LoginResponse> LoginAsync(LoginRequest request)
+        {
+            return null;
         }
     }
 }

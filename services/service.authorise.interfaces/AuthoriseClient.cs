@@ -20,10 +20,19 @@ namespace service.authorise.interfaces
             _client = new ServiceClient(configuration["services:authorise"]);
         }
 
+        #region IAuthoriseService
         public async Task<CheckTokenResponse> CheckTokenAsync(CheckTokenRequest request)
         {
             var resp = await _client.PostAsync<CheckTokenRequest, CheckTokenResponse>("checktoken", request);
             return resp;
         }
+
+        public async Task<LoginResponse> LoginAsync(LoginRequest request)
+        {
+            var resp = await _client.PostAsync<LoginRequest, LoginResponse>("login", request);
+
+            return resp;
+        }
+        #endregion
     }
 }
