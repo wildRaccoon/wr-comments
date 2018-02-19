@@ -10,6 +10,10 @@ using System.Linq;
 using service.comments.contracts;
 using wr.repository;
 using wr.repository.interfaces;
+using service.authorise.interfaces;
+using service.authorise.documents;
+using service.core;
+using System.Threading.Tasks;
 
 namespace wr.application
 {
@@ -25,7 +29,7 @@ namespace wr.application
             };
         }
 
-        public static void CheckComment()
+        public static async Task CheckComment()
         {
             var sc = new ServiceCollection();
 
@@ -37,26 +41,50 @@ namespace wr.application
             sc.AddSingleton<IConfiguration>(configuration);
             sc.AddLogging();
             sc.AddCommentsClient();
+            sc.AddAuthoriseClient();
 
             var sp = sc.BuildServiceProvider();
 
             var logFactory = sp.GetRequiredService<ILoggerFactory>();
             logFactory.AddConsole();
 
+            var auth = sp.GetRequiredService<IAuthoriseService>();
             var com = sp.GetRequiredService<ICommentsService>();
             var log = sp.GetRequiredService<ILogger<Program>>();
 
             try
             {
-                var task = com.RegisterArtitleAsync(new RegisterArtitleRequest()
+                var userLogin = "us1";
+                var respLogin = await auth.LoginAsync(new LoginRequest()
                 {
-                    Token = Guid.NewGuid().ToString(),
-                    UserIdentity = "my_user"
+                    Password = Utils.MD5Hash("password1"),
+                    UserIdentity = userLogin
                 });
 
-                task.Wait();
+                log.LogInformation($"Login request for user:{userLogin} {respLogin.Message}:{respLogin.Success}:{respLogin.Token}");
 
-                log.LogInformation($"Result: {task.Result.Success}");
+                if (respLogin.Success)
+                {
+                    var checkTokenResp = await auth.CheckTokenAsync(new CheckTokenRequest() {
+                        Token = respLogin.Token,
+                        UserIdentity = userLogin
+                    });
+
+                    log.LogInformation($"Login request for user:{userLogin} {checkTokenResp.Message}:{checkTokenResp.Success}:{respLogin.Token}");
+
+                    if (checkTokenResp.Success)
+                    {
+                        var commentAdd = await com.RegisterArtitleAsync(new RegisterArtitleRequest()
+                        {
+                            UserIdentity = userLogin,
+                            Token = respLogin.Token,
+                            Content = $"Created On {DateTime.Now}",
+                            Id = Guid.NewGuid().ToString()
+                        });
+
+                        log.LogInformation($"Login request for user:{userLogin} {commentAdd.Message}:{commentAdd.Success}:{respLogin.Token}");
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -69,7 +97,8 @@ namespace wr.application
 
         static void Main(string[] args)
         {
-            //CheckComment();
+            CheckComment().Wait();
+            return;
 
             var sc = new ServiceCollection();
 

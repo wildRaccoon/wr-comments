@@ -19,8 +19,10 @@
     <PackageReference Include="NEST" Version="5.6.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\services\service.authorise.interfaces\service.authorise.interfaces.csproj" />
     <ProjectReference Include="..\services\service.comments.interfaces\service.comments.interfaces.csproj" />
     <ProjectReference Include="..\services\service.comments.contracts\service.comments.contracts.csproj" />
+    <ProjectReference Include="..\services\service.core\service.core.csproj" />
     <ProjectReference Include="..\wr.repository\wr.repository.csproj" />
   </ItemGroup>
 </Project>

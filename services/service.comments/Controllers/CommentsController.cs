@@ -84,7 +84,10 @@ namespace service.comments.Controllers
                          Id = req.Id
                      });
 
-                     return new RegisterArtitleResponse();
+                     return new RegisterArtitleResponse() {
+                         Message = "Success",
+                         Success = true
+                     };
                  }
              });
         }

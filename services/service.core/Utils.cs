@@ -1,5 +1,6 @@
 using System.Text;
 using System.Security.Cryptography;
+using System;
 
 namespace service.core
 {
@@ -9,8 +10,17 @@ namespace service.core
         {
             using (var md5 = MD5.Create())
             {
-                var result = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
-                return Encoding.UTF8.GetString(result);
+                var inputBytes = Encoding.Default.GetBytes(input);
+                var result = md5.ComputeHash(inputBytes);
+
+                var sb = new StringBuilder(32);
+
+                foreach (var b in result)
+                {
+                    sb.Append(b.ToString("X2"));
+                }
+
+                return sb.ToString();
             }
         }
     }
